@@ -1,4 +1,8 @@
-## Minimum PWA Tutorial
+# Minimal PWA
+
+
+
+## Minimal PWA Tutorial
 
 1. Create `index.html`. This will serve as the launching point for the PWA and is stored in the root project directory.
 
@@ -128,3 +132,4 @@ Further information can be found in the [W3C Specification](https://w3c.github.i
 3. https://web.dev/learn/pwa/service-workers/#:~:text=Service%20workers%20are%20a%20fundamental,push%20notifications%2C%20and%20other%20capabilities.
 4. https://web.dev/maskable-icon/#:~:text=Maskable%20icons%20are%20a%20new,great%20on%20all%20Android%20devices.
 5. https://maskable.app/
+6. https://web.dev/pwa-checklist/
