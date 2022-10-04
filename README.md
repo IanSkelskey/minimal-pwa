@@ -1,105 +1,90 @@
 # Minimal PWA
 
-
+The worst app ever!
 
 ## Minimal PWA Tutorial
 
 1. Create `index.html`. This will serve as the launching point for the PWA and is stored in the root project directory.
 
-   The `<head>` tag needs to contain some metadata as well as reference to any outside resources like icons and
+   - The `<head>` tag needs to contain some metadata as well as reference to any outside resources like icons and
    stylesheets. The manifest must be referenced here.
+   - The `<body>` tag must contain reference to any JavaScript required to control the app.
+   - The rest of the document can be customized to suit the needs of the application.
 
-   ### Sample `<head>`
+   ### Sample `index.html`
 
-    ```html
-    <head>
-    <title>Simple PWA</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
-    <meta name="theme-color" content="#db4938" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="manifest" href="manifest.json" />
-    <link rel="apple-touch-icon" href="images/icons/icon-72x72.png" />
-    <link rel="apple-touch-icon" href="images/icons/icon-96x96.png" />
-    <link rel="apple-touch-icon" href="images/icons/icon-128x128.png" />
-    <link rel="apple-touch-icon" href="images/icons/icon-144x144.png" />
-    <link rel="apple-touch-icon" href="images/icons/icon-152x152.png" />
-    <link rel="apple-touch-icon" href="images/icons/icon-192x192.png" />
-    <link rel="apple-touch-icon" href="images/icons/icon-384x384.png" />
-    <link rel="apple-touch-icon" href="images/icons/icon-512x512.png" />
-    </head>
+   ```html
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <meta name="theme-color" content="#db4938" />
+       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+       <link rel="apple-touch-icon" href="images/icons/icon-192x192.png" />
+       <title>Simple PWA</title>
+       <link rel="manifest" href="manifest.json" />
+   </head>
+   <body>
+       <h1>Simple PWA</h1>
+       <p>Hello World!</p>
+       <script src="js/app.js"></script>
+   </body>
+   </html>
    ```
-
-   The `<body>` tag must contain reference to any JavaScript required to control the app.
-
-   ### Sample `<body>`
-
-    ```html
-    <body>
-        <script src="js/app.js"></script>
-    </body>
-    ```
-
-   The rest of the document can be customized to suit the needs of the application.
 
 2. Create the manifest. The manifest provides some basic information about the application as a JSON text file.
    Icons are required for installable PWAs. Google further requires that at least one of the small icons is flagged
    as maskable. If no purpose is specified an icon's purpose will be *any*. Store `manifest.json` in the root project
    directory.
 
+   ### Sample `manifest.json`
+
   ```json
    {
-     "name": "Simple PWA",
-     "short_name": "PWA",
-     "start_url": "index.html",
-     "display": "standalone",
-     "background_color": "#fdfdfd",
-     "theme_color": "#db4938",
-     "orientation": "portrait-primary",
-     "icons": [
-       {
-         "src": "images/icons/icon-72x72.png",
-         "type": "image/png", "sizes": "72x72",
-         "purpose": "maskable"
-       },
-       {
-         "src": "images/icons/icon-96x96.png",
-         "type": "image/png", "sizes": "96x96",
-         "purpose": "maskable"
-       },
-       {
-         "src": "images/icons/icon-128x128.png",
-         "type": "image/png","sizes": "128x128",
-         "purpose": "maskable"
-       },
-       {
-         "src": "images/icons/icon-144x144.png",
-         "type": "image/png", "sizes": "144x144"
-       },
-       {
-         "src": "images/icons/icon-152x152.png",
-         "type": "image/png", "sizes": "152x152"
-       },
-       {
-         "src": "images/icons/icon-192x192.png",
-         "type": "image/png", "sizes": "192x192"
-       },
-       {
-         "src": "images/icons/icon-384x384.png",
-         "type": "image/png", "sizes": "384x384"
-       },
-       {
-         "src": "images/icons/icon-512x512.png",
-         "type": "image/png", "sizes": "512x512"
-       }
-     ]
+      "name": "Simple PWA",
+      "short_name": "PWA",
+      "display": "standalone",
+      "start_url": "index.html",
+      "background_color": "#ffffff",
+      "theme_color": "#7b4b7d",
+      "icons": [
+         {
+            "src": "images/icons/icon-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "maskable"
+         },
+         {
+            "src": "images/icons/icon-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+         }
+      ]
    }
    ```
 
 3. Create and register a **service worker**.
 
+   ### Sample Service Worker
+   The service worker must have event listeners for *install* and *fetch* at a minimum.
+   ```javascript
+   self.addEventListener("install", event => {
+    console.log("Service worker installed", event);
+   });
+   
+   self.addEventListener("fetch", event => {
+    console.log("Service worker fetching...", event)
+   })
+   ```
+   
+   ### Registering the Service Worker
+   The service worker must be registered in a JavaScript file linked in `index.html`.
+   ```javascript
+   if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register("/minimal-pwa/serviceworker.js");
+   }
+   ```
+   
 4. Add icons.
 
 5. Serve with HTTPs
